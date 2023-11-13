@@ -42,6 +42,22 @@ const Main = () => {
                                             Home
                                         </NavLink>
                                     </li>
+                                    <li>
+                                        <NavLink
+                                            to={'/menu'}
+                                            className="text-black font-semibold text-lg"
+                                        >
+                                            Our menu
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to={'/shop'}
+                                            className="text-black font-semibold text-lg"
+                                        >
+                                            Our shop
+                                        </NavLink>
+                                    </li>
 
                                 </ul>
                             </div>
@@ -105,6 +121,22 @@ const Main = () => {
                                 className="text-black font-semibold text-lg"
                             >
                                 Home
+                            </NavLink>
+                        </li>
+                        <li className="mt-3">
+                            <NavLink
+                                to={'/menu'}
+                                className="text-black font-semibold text-lg"
+                            >
+                                Our menu
+                            </NavLink>
+                        </li>
+                        <li className="mt-3">
+                            <NavLink
+                                to={'/shop'}
+                                className="text-black font-semibold text-lg"
+                            >
+                                Our shop
                             </NavLink>
                         </li>
 
