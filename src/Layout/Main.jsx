@@ -6,13 +6,12 @@ const Main = () => {
     return (
 
         <>
-
             <div className="drawer">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col">
+                <div className="drawer-content flex flex-col min-w-full">
 
                     {/* Navbar */}
-                    <div className="bg-gray-50 dark:bg-gray-800 shadow">
+                    <div className="bg-gray-50 shadow">
                         <div className="navbar container mx-auto flex justify-between">
 
                             {/* Mobile menu Icon  */}
@@ -81,7 +80,7 @@ const Main = () => {
 
                     {/* Page content Start here */}
 
-                    <main className="container mx-auto px-3">
+                    <main>
                         <Outlet></Outlet>
                         <Footer></Footer>
                     </main>
