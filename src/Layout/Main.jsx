@@ -1,8 +1,11 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Footer from "../pages/shared/Footer/Footer";
+import { useContext } from "react";
+import { AllContext } from "../provider/Authprovider";
 
 
 const Main = () => {
+    const { user } = useContext(AllContext);
     return (
 
         <>
@@ -64,7 +67,7 @@ const Main = () => {
 
 
                             <div className="flex gap-4 items-center justify-center">
-                                <Link to={'/dashboard/profile'}>
+                                <Link to={'/logout'}>
                                     <button
                                         type="button"
                                         className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -76,19 +79,34 @@ const Main = () => {
                                         <span className="sr-only">Open user menu</span>
                                         <img
                                             className="w-9 h-9 rounded-full"
-                                            src="https://picsum.photos/200"
+                                            src={user?.photoURL || 'https://picsum.photos/200'}
                                             alt="user photo"
                                         />
                                     </button>
                                 </Link>
-                                <Link to={'/login'}>
-                                    <button
-                                        type="button"
-                                        className="bg-black text-white py-2 px-3"
-                                    >
-                                        Log In
-                                    </button>
-                                </Link>
+                                {
+                                    user ? 
+                                    <>
+                                        <Link to={'/logout'}>
+                                            <button
+                                                type="button"
+                                                className="bg-black text-white py-2 px-3"
+                                            >
+                                                Log out
+                                            </button>
+                                        </Link>
+                                    </> : 
+                                    <>
+                                        <Link to={'/login'}>
+                                            <button
+                                                type="button"
+                                                className="bg-black text-white py-2 px-3"
+                                            >
+                                                Log In
+                                            </button>
+                                        </Link>
+                                    </>
+                                }
                             </div>
 
                         </div>
