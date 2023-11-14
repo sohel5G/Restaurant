@@ -3,10 +3,11 @@ import { Parallax } from 'react-parallax';
 import topBanner from "../../../assets/menu/banner3.jpg"
 import useMenu from "../../../hooks/useMenu";
 import MenuItem from "../../shared/MenuItem/MenuItem";
+import SkeletonMenuItem from "../../Skeleton/skeletonMenuItem";
 
 const Menu = () => {
 
-    const [menu] = useMenu()
+    const [menu, menuLoading] = useMenu()
     const dessert = menu.filter(item => item.category === 'dessert');
     const soup = menu.filter(item => item.category === 'soup');
     const pizza = menu.filter(item => item.category === 'pizza');
@@ -45,7 +46,18 @@ const Menu = () => {
                 <div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center items-center">
                         {
-                            offered.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                            menuLoading ?
+                                <>
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                </> :
+                                <>
+                                    {
+                                        offered.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                                    }
+                                </>
                         }
                     </div>
                 </div>
@@ -60,7 +72,18 @@ const Menu = () => {
                 <div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center items-center">
                         {
-                            dessert.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                            menuLoading ?
+                                <>
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                </> :
+                                <>
+                                    {
+                                        dessert.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                                    }
+                                </>
                         }
                     </div>
                 </div>
@@ -75,7 +98,18 @@ const Menu = () => {
                 <div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center items-center">
                         {
-                            pizza.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                            menuLoading ?
+                                <>
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                </> :
+                                <>
+                                    {
+                                        pizza.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                                    }
+                                </>
                         }
                     </div>
                 </div>
@@ -90,7 +124,18 @@ const Menu = () => {
                 <div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center items-center">
                         {
-                            salad.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                            menuLoading ?
+                                <>
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                </> :
+                                <>
+                                    {
+                                        salad.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                                    }
+                                </>
                         }
                     </div>
                 </div>
@@ -105,7 +150,18 @@ const Menu = () => {
                 <div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center items-center">
                         {
-                            soup.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                            menuLoading ?
+                                <>
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                    <SkeletonMenuItem />
+                                </> :
+                                <>
+                                    {
+                                        soup.map(item => <MenuItem key={item._id} item={item}></MenuItem>)
+                                    }
+                                </>
                         }
                     </div>
                 </div>
