@@ -10,16 +10,16 @@ This form is using React hooks form for the field validation
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from 'react-icons/fa';
 import swal from "sweetalert";
-import { useContext, useEffect, useRef, useState } from "react";
-import { AllContext } from "../../Provider/AuthProvider";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
     const [showPass, setShowPass] = useState(true);
     const [showConfirmPass, setShowConfirmPass] = useState(true);
-    const { registerUser, userUpdateOnSignUp, setUser, googleSignInWithPopup } = useContext(AllContext);
+    const { registerUser, userUpdateOnSignUp, setUser, googleSignInWithPopup } = useAuth();
     const navigate = useNavigate()
 
     const captchaRef = useRef(null);
@@ -45,7 +45,7 @@ const Register = () => {
                             buttons: false,
                         })
 
-                        navigate('/logout');
+                        navigate('/dashboard');
 
                     }).catch((error) => {
                         console.log('profile data not set', error)
@@ -82,7 +82,7 @@ const Register = () => {
                     icon: "success",
                     buttons: false,
                 })
-                navigate('/logout');
+                navigate('/dashboard');
 
             }).catch((errorData) => {
                 const error = errorData.message;
@@ -237,7 +237,7 @@ const Register = () => {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
                                 required=""
                             />
-                            <span onClick={handleValidateCaptcha} className={`${disableLogInBtn ? 'bg-[#000000]' : 'text-green-500'} bg-[#0000000d] cursor-pointer p-2 rounded-full absolute top-2 right-2 text-xs`}>
+                            <span onClick={handleValidateCaptcha} className={`${disableLogInBtn ? 'text-black' : 'text-green-500'} bg-[#0000000d] cursor-pointer p-2 rounded-full absolute top-2 right-2 text-xs`}>
                                 <FaCheck />
                             </span>
                         </div>

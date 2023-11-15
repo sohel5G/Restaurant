@@ -1,10 +1,8 @@
-import { useContext } from "react";
-import { AllContext } from "../../provider/Authprovider";
+import useAuth from "../../../hooks/useAuth";
 
+const DashboardProfile = () => {
 
-const LogOut = () => {
-
-    const { user, userlogOut } = useContext(AllContext);
+    const { user, userlogOut } = useAuth();
 
     const handleLogOut = () => {
         userlogOut()
@@ -16,9 +14,9 @@ const LogOut = () => {
     }
 
     return (
-        <div className="flex justify-center items-center py-8 px-5">
+        <div className="flex justify-center items-center py-8 px-5 min-w-[400px]">
             <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-600 dark:border-gray-700">
-                <div className="flex flex-col items-center py-10">
+                <div className="flex flex-col items-center justify-center py-10">
                     <img
                         className="w-20 h-20 mb-3 rounded-full shadow-lg"
                         src={user?.photoURL || 'https://picsum.photos/200'}
@@ -45,4 +43,4 @@ const LogOut = () => {
     );
 };
 
-export default LogOut;
+export default DashboardProfile;

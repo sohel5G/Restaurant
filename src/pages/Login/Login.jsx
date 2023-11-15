@@ -31,7 +31,7 @@ const Login = () => {
                     icon: "success",
                     buttons: false,
                 })
-                navigate(location?.state ? location?.state : '/logout');
+                navigate(location?.state ? location?.state : '/dashboard');
 
             })
             .catch((errorData) => {
@@ -58,7 +58,7 @@ const Login = () => {
                     icon: "success",
                     buttons: false,
                 })
-                navigate(location?.state ? location?.state : '/logout');
+                navigate(location?.state ? location?.state : '/dashboard');
 
             }).catch((errorData) => {
                 const error = errorData.message;
@@ -147,7 +147,7 @@ const Login = () => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
                                     required
                                 />
-                                <span onClick={handleValidateCaptcha} className={`${disableLogInBtn ? 'bg-[#000000]' : 'text-green-500'} bg-[#0000000d] cursor-pointer p-2 rounded-full absolute top-2 right-2 text-xs`}>
+                                <span onClick={handleValidateCaptcha} className={`${disableLogInBtn ? 'text-black' : 'text-green-500'} bg-[#0000000d] cursor-pointer p-2 rounded-full absolute top-2 right-2 text-xs`}>
                                     <FaCheck />
                                 </span>
                             </div>

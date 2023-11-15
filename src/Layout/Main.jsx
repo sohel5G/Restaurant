@@ -1,12 +1,11 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Footer from "../pages/shared/Footer/Footer";
-import { useContext } from "react";
-import { AllContext } from "../provider/Authprovider";
 import MenuCart from "../pages/shared/Cart/MenuCart";
+import useAuth from "../hooks/useAuth";
 
 
 const Main = () => {
-    const { user } = useContext(AllContext);
+    const { user } = useAuth();
     return (
 
         <>
@@ -68,7 +67,7 @@ const Main = () => {
 
 
                             <div className="flex items-center justify-center">
-                                <Link to={'/logout'}>
+                                <Link to={'/dashboard'}>
                                     <button
                                         type="button"
                                         className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -85,7 +84,7 @@ const Main = () => {
                                         />
                                     </button>
                                 </Link>
-                                <Link to={'/'}>
+                                <Link to={'/dashboard/cart'}>
                                     <MenuCart></MenuCart>
                                 </Link>
                             </div>
