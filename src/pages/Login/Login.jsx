@@ -1,16 +1,16 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
-import { AllContext } from '../../Provider/AuthProvider';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
+import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
     const [showPass, setShowPass] = useState(true);
     const navigate = useNavigate();
     const location = useLocation();
-    const { userLogIn, googleSignInWithPopup } = useContext(AllContext);
+    const { userLogIn, googleSignInWithPopup } = useAuth();
 
     const captchaRef = useRef(null);
     const [disableLogInBtn, setDisableLogInBtn] = useState(true);
@@ -79,9 +79,9 @@ const Login = () => {
     }, [])
     const handleValidateCaptcha = () => {
         const captchaValue = captchaRef.current.value;
-        if (validateCaptcha(captchaValue)){
+        if (validateCaptcha(captchaValue)) {
             setDisableLogInBtn(false)
-        }else{
+        } else {
             setDisableLogInBtn(true)
         }
     }
@@ -179,7 +179,7 @@ const Login = () => {
                                     Forgot password?
                                 </a>
                             </div>
-                            
+
                             <div>
                                 <input
                                     disabled={disableLogInBtn}

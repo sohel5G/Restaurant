@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import Footer from "../pages/shared/Footer/Footer";
 import { useContext } from "react";
 import { AllContext } from "../provider/Authprovider";
+import MenuCart from "../pages/shared/Cart/MenuCart";
 
 
 const Main = () => {
@@ -66,7 +67,7 @@ const Main = () => {
                             </div>
 
 
-                            <div className="flex gap-4 items-center justify-center">
+                            <div className="flex items-center justify-center">
                                 <Link to={'/logout'}>
                                     <button
                                         type="button"
@@ -84,29 +85,9 @@ const Main = () => {
                                         />
                                     </button>
                                 </Link>
-                                {
-                                    user ? 
-                                    <>
-                                        <Link to={'/logout'}>
-                                            <button
-                                                type="button"
-                                                className="bg-black text-white py-2 px-3"
-                                            >
-                                                Log out
-                                            </button>
-                                        </Link>
-                                    </> : 
-                                    <>
-                                        <Link to={'/login'}>
-                                            <button
-                                                type="button"
-                                                className="bg-black text-white py-2 px-3"
-                                            >
-                                                Log In
-                                            </button>
-                                        </Link>
-                                    </>
-                                }
+                                <Link to={'/'}>
+                                    <MenuCart></MenuCart>
+                                </Link>
                             </div>
 
                         </div>
