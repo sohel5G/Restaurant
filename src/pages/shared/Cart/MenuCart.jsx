@@ -4,6 +4,7 @@ import useCart from '../../../hooks/useCart';
 const MenuCart = () => {
 
     const [cart] = useCart();
+    const totalprice = cart.reduce((total, item) => total + item.price, 0)
     
     return (
         <>
@@ -15,7 +16,7 @@ const MenuCart = () => {
                     <span className='text-xs font-medium absolute -top-3 -right-2 !text-white bg-black flex justify-center items-center w-5 h-5 rounded-full'>{cart?.length}</span>
                 </div>
                 <div>
-                    <p className='text-base font-medium'> <span>$</span>250</p>
+                    <p className='text-base font-medium'> <span>$</span>{totalprice}</p>
                 </div>
             </div>
         </>

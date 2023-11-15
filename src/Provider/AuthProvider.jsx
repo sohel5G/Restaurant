@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
 
     }, [])
 
-    console.log("current user", user);
+    
 
     const allInfo = {
         user,
