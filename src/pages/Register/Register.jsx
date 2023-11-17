@@ -7,25 +7,31 @@ This form is using React hooks form for the field validation
 
 
 /* eslint-disable no-useless-escape */
-import { Link, useNavigate } from "react-router-dom";
-import { FaGoogle } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../shared/SocialLogin/SocialLogin";
 
 const Register = () => {
+    const { registerUser, userUpdateOnSignUp, setUser } = useAuth();
+
     const [showPass, setShowPass] = useState(true);
     const [showConfirmPass, setShowConfirmPass] = useState(true);
-    const { registerUser, userUpdateOnSignUp, setUser, googleSignInWithPopup } = useAuth();
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const captchaRef = useRef(null);
     const [disableLogInBtn, setDisableLogInBtn] = useState(true);
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const axiosPublic = useAxiosPublic();
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const onSubmit = data => {
 
         registerUser(data.email, data.password)
@@ -35,24 +41,35 @@ const Register = () => {
 
                 userUpdateOnSignUp({ displayName: data.name, photoURL: data.photo_url, email: data.email })
                     .then(() => {
-
                         setUser({ displayName: data.name, photoURL: data.photo_url, email: data.email });
+
+                        //store user to database
+                        const userInfo = { name: data.name, email: data.email }
+                        axiosPublic.post('/store-users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    swal({
+                                        text: "Registration Success",
+                                        icon: "success",
+                                        buttons: false,
+                                    })
+                                }
+
+                                console.log('user stored into database', res.data);
+
+                                reset()
+                                navigate(location?.state ? location?.state : '/dashboard');
+
+                            })
+                        //store user to database end
+
                         console.log('profile data set')
-
-                        swal({
-                            text: "Registration Success",
-                            icon: "success",
-                            buttons: false,
-                        })
-
-                        navigate('/dashboard');
 
                     }).catch((error) => {
                         console.log('profile data not set', error)
                     });
 
-                console.log('SignUp Use', user)
-
+                console.log('SignUp User created', user)
 
             })
             .catch((errorData) => {
@@ -69,32 +86,6 @@ const Register = () => {
 
     }
 
-
-
-    const handleUserSignInWithPopup = () => {
-        googleSignInWithPopup()
-            .then((succData) => {
-                const user = succData.user;
-                console.log(user)
-
-                swal({
-                    text: "Registration Success",
-                    icon: "success",
-                    buttons: false,
-                })
-                navigate('/dashboard');
-
-            }).catch((errorData) => {
-                const error = errorData.message;
-                console.log(error)
-
-                swal({
-                    text: errorData.message,
-                    icon: "warning",
-                    buttons: false,
-                })
-            });
-    }
 
 
     useEffect(() => {
@@ -235,7 +226,6 @@ const Register = () => {
                                 name="captcha"
                                 placeholder="Type the text above"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
-                                required=""
                             />
                             <span onClick={handleValidateCaptcha} className={`${disableLogInBtn ? 'text-black' : 'text-green-500'} bg-[#0000000d] cursor-pointer p-2 rounded-full absolute top-2 right-2 text-xs`}>
                                 <FaCheck />
@@ -292,13 +282,7 @@ const Register = () => {
                             </Link>
                         </p>
                     </form>
-                    <div className="flex justify-center items-center">
-                        <div className='mt-2 my-4 mx-1'>
-
-                            <button onClick={handleUserSignInWithPopup} className='text-primary-defaultPrimaryColor flex items-center gap-2 py-2 border border-primary-defaultPrimaryColor rounded-lg text-sm font-medium my-3 px-4 min-w-[185px] hover:bg-primary-defaultPrimaryColor hover:text-white dark:text-white dark:hover:text-primary-defaultPrimaryColor dark:hover:bg-white dark:border-white'><span> <FaGoogle /> </span> <span>Login with Google</span> </button>
-
-                        </div>
-                    </div>
+                    <SocialLogin></SocialLogin>
                 </div>
             </div>
 

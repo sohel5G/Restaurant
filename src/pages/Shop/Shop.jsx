@@ -11,6 +11,7 @@ import SkeletonFoodCard from "../Skeleton/SkeletonFoodCard";
 const Shop = () => {
     const [tabIndex, setTabIndex] = useState(0);
     const [menu, menuLoading] = useMenu()
+    
     const dessert = menu.filter(item => item.category === 'dessert');
     const soup = menu.filter(item => item.category === 'soup');
     const pizza = menu.filter(item => item.category === 'pizza');

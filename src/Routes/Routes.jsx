@@ -11,6 +11,7 @@ import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import DashboardCart from "../pages/Dashboard/DashboardCart/DashboardCart";
 import DashboardProfile from "../pages/Dashboard/DashboardProfile/DashboardProfile";
 import Reservation from "../pages/Dashboard/Reservation/Reservation";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,22 @@ const router = createBrowserRouter([
         path:'/dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
+
+            //Admin routs
+            {
+                path:'all-users',
+                element: <AllUsers></AllUsers>
+            },
+
+            // Admin routs
+
+
+
+
+
+            
+
+            // Customers routes 
             {
                 path: '',
                 element:<DashboardHome></DashboardHome>
@@ -59,6 +76,7 @@ const router = createBrowserRouter([
                 path:'profile',
                 element: <DashboardProfile></DashboardProfile>
             }
+            // End Customers routes
         ]
     }
 ]);

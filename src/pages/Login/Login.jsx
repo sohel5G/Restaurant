@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import useAuth from '../../hooks/useAuth';
+import SocialLogin from '../shared/SocialLogin/SocialLogin';
 
 const Login = () => {
+    const { userLogIn } = useAuth();
     const [showPass, setShowPass] = useState(true);
+
     const navigate = useNavigate();
     const location = useLocation();
-    const { userLogIn, googleSignInWithPopup } = useAuth();
 
     const captchaRef = useRef(null);
     const [disableLogInBtn, setDisableLogInBtn] = useState(true);
@@ -44,32 +45,6 @@ const Login = () => {
                 })
 
                 console.log('login error', error)
-            });
-    }
-
-    const handleUserSignInWithPopup = () => {
-        googleSignInWithPopup()
-            .then((succData) => {
-                const user = succData.user;
-                user
-
-                swal({
-                    text: "Successfully Log In",
-                    icon: "success",
-                    buttons: false,
-                })
-                navigate(location?.state ? location?.state : '/dashboard');
-
-            }).catch((errorData) => {
-                const error = errorData.message;
-
-                swal({
-                    text: errorData.message,
-                    icon: "warning",
-                    buttons: false,
-                })
-
-                console.log(error)
             });
     }
 
@@ -199,13 +174,7 @@ const Login = () => {
                                 </Link>
                             </p>
                         </form>
-                        <div className="flex justify-center items-center">
-                            <div className='mt-2 my-4 mx-1'>
-
-                                <button onClick={handleUserSignInWithPopup} className='text-primary-defaultPrimaryColor flex items-center gap-2 py-2 border border-primary-defaultPrimaryColor rounded-lg text-sm font-medium my-3 px-4 min-w-[185px] dark:text-white dark:hover:text-primary-defaultPrimaryColor dark:hover:bg-white dark:border-white'><span> <FaGoogle /> </span> <span>Login with Google</span> </button>
-
-                            </div>
-                        </div>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>

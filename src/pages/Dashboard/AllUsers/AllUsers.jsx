@@ -1,14 +1,40 @@
-import Swal from "sweetalert2";
-import useCart from "../../../hooks/useCart";
+import { useQuery } from "@tanstack/react-query";
 import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
-const DashboardCart = () => {
-    const [cart, , , refetch] = useCart();
-    const totalprice = cart.reduce((total, item) => total + item.price, 0);
+const AllUsers = () => {
     const axiosSecure = useAxiosSecure()
 
-    const handleDelete = itemId => {
+    const { data: users = [], refetch } = useQuery({
+        queryKey: ['AllUsers'],
+        queryFn: async () => {
+            const response = await axiosSecure.get('/users')
+            return response.data
+        }
+    })
+
+
+    const handleUserRoleEdit = (item) => {
+        axiosSecure.patch(`/users/make-admin/${item._id}`)
+            .then(res => {
+
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: `${item.name} is now admin`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
+                }
+
+            })
+    }
+
+
+    const handleUserDelete = (itemId) => {
 
         Swal.fire({
 
@@ -23,15 +49,15 @@ const DashboardCart = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`http://localhost:5000/user/delete-cart/${itemId}`)
+                axiosSecure.delete(`/users/${itemId}`)
                     .then(response => {
                         if (response.data.deletedCount > 0) {
                             Swal.fire({
                                 position: "center",
                                 icon: "success",
-                                title: "Your file has been deleted.",
+                                title: "User has been deleted.",
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2000
                             });
                             refetch();
                         }
@@ -41,12 +67,14 @@ const DashboardCart = () => {
         });
     }
 
+
+
     return (
         <>
             <div className="flex gap-5 justify-between bg-gray-100 py-4 px-5 rounded-md">
-                <h1 className="text-2xl">Item {cart?.length}</h1>
-                <h1 className="text-2xl">Total Price ${totalprice}</h1>
-                <button className="bg-black text-white text-lg py-2 px-5 rounded-md">Pay</button>
+                <h1 className="text-2xl">All Users : {users?.length} </h1>
+                <h1 className="text-2xl"> </h1>
+                <button></button>
             </div>
             <div>
                 <div className="overflow-x-auto">
@@ -55,42 +83,50 @@ const DashboardCart = () => {
                         <thead className="bg-gray-100">
                             <tr className="border-gray-200">
                                 <th className="text-lg">Number</th>
-                                <th className="text-lg">Image</th>
                                 <th className="text-lg">Name</th>
-                                <th className="text-lg">Price</th>
+                                <th className="text-lg">Email</th>
+                                <th className="text-lg">Role</th>
                                 <th className="text-lg">Action</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             {
-                                cart?.map((item, index) => <tr key={item._id} className="border-gray-200">
+                                users.map((item, index) => <tr key={item._id} className="border-gray-200">
                                     <th>
                                         <h1>{index + 1}</h1>
                                     </th>
+                                    <th>
+                                        <h1>{item?.name}</h1>
+                                    </th>
                                     <td>
-                                        <div>
-                                            <img className="w-20 rounded-xl" src={item.image} alt={item.name} />
-                                        </div>
+                                        <h1>{item?.email}</h1>
                                     </td>
                                     <td>
-                                        <h2 className="text-xl">{item.name}</h2>
-                                    </td>
-                                    <td>
-                                        <p> {item.price} </p>
+                                        {
+                                            item.role === 'admin' ? 
+                                            <>
+                                                <button className="text-black">Admin</button>
+                                            </> : 
+                                            <>
+                                                <button onClick={() => handleUserRoleEdit(item)} className="text-orange-500">Edit</button>
+                                            </>
+                                        }
+                                        
                                     </td>
                                     <th>
-                                        <button onClick={() => handleDelete(item._id)} className="text-2xl text-red-400"><MdDelete /></button>
+                                        <button onClick={() => handleUserDelete(item._id)} className="text-2xl text-red-400"><MdDelete /></button>
                                     </th>
                                 </tr>)
                             }
                         </tbody>
-                        
+
                         <tfoot className="bg-gray-100">
                             <tr>
                                 <th className="text-lg">Number</th>
-                                <th className="text-lg">Image</th>
                                 <th className="text-lg">Name</th>
-                                <th className="text-lg">Price</th>
+                                <th className="text-lg">Email</th>
+                                <th className="text-lg">Role</th>
                                 <th className="text-lg">Action</th>
                             </tr>
                         </tfoot>
@@ -102,4 +138,4 @@ const DashboardCart = () => {
     );
 };
 
-export default DashboardCart;
+export default AllUsers;
