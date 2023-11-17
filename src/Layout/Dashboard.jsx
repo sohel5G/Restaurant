@@ -7,14 +7,15 @@ import { HiUsers } from "react-icons/hi2";
 import { FaUsers } from "react-icons/fa";
 import { ImSpoonKnife } from "react-icons/im";
 import { SlCalender } from "react-icons/sl";
+import useIsAdmin from "../hooks/useIsAdmin";
+
 
 const Dashboard = () => {
 
-    // TODO: get isAdmin value form the database
-    const isAdmin = true;
+    const [isAdmin] = useIsAdmin()
 
     return (
-        <>
+        <> 
             <div className="drawer lg:drawer-open gap-5 pr-5">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 

@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import { Navigate, useLocation } from "react-router-dom";
-import useAuth from '../hooks/useAuth';
+import useAuth from "../hooks/useAuth";
+import useIsAdmin from "../hooks/useIsAdmin";
 
-
-const PrivateRoute = ({ children }) => {
-    const { user, loading } = useAuth()
+const AdminRoute = ({children}) => {
+    const {user, loading} = useAuth()
+    const [isAdmin, isAdminLoading] = useIsAdmin();
     const location = useLocation();
 
-    if (loading) {
+    if (loading || isAdminLoading) {
         return <>
             <div className="h-screen flex justify-center items-center">
                 <div className='text-center'>
@@ -21,14 +22,15 @@ const PrivateRoute = ({ children }) => {
     return (
         <>
             {
-                user ? children : <Navigate state={location.pathname} to={'/login'}></Navigate>
+                user && isAdmin ? children : <Navigate state={location.pathname} to={'/login'}></Navigate>
             }
         </>
     );
+
 };
 
-export default PrivateRoute;
+export default AdminRoute;
 
-PrivateRoute.propTypes = {
+AdminRoute.propTypes = {
     children: PropTypes.node
 };
