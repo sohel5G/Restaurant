@@ -2,12 +2,11 @@
 import { FaGoogle } from "react-icons/fa";
 import swal from "sweetalert";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { AllContext } from "../../../Provider/Authprovider";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAuth from "../../../hooks/useAuth";
 
 const SocialLogin = () => {
-    const { googleSignInWithPopup } = useContext(AllContext);
+    const { googleSignInWithPopup } = useAuth();
     const axiosPublic = useAxiosPublic();
 
     const location = useLocation();
@@ -28,7 +27,7 @@ const SocialLogin = () => {
                             icon: "success",
                             buttons: false,
                         })
-                        navigate(location?.state ? location?.state : '/dashboard');
+                        navigate(location?.state ? location?.state : '/dashboard/profile');
                     } 
                     else {
                         swal({
@@ -36,7 +35,7 @@ const SocialLogin = () => {
                             icon: "success",
                             buttons: false,
                         })
-                        navigate(location?.state ? location?.state : '/dashboard');
+                        navigate(location?.state ? location?.state : '/dashboard/profile');
                     }
                     
                 })

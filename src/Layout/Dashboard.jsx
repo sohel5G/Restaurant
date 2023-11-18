@@ -8,14 +8,14 @@ import { FaUsers } from "react-icons/fa";
 import { ImSpoonKnife } from "react-icons/im";
 import { SlCalender } from "react-icons/sl";
 import useIsAdmin from "../hooks/useIsAdmin";
-
+import "./dashboard.css";
 
 const Dashboard = () => {
 
     const [isAdmin] = useIsAdmin()
 
     return (
-        <> 
+        <>
             <div className="drawer lg:drawer-open gap-5 pr-5">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
@@ -35,35 +35,38 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side min-h-full">
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 min-h-full text-base-content bg-[#D1A054] z-50 pt-12">
+                    <ul className="dashboard-menus menu p-4 w-80 min-h-full text-base-content bg-[#D1A054] z-50 pt-12">
 
-                        
+
                         {
-                            isAdmin ? 
-                            <>
-                            
-                                {/* Admin nav links */}
-                                <li>
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/admin'}><FaHome /> Admin Dashboard</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/add-item'}><ImSpoonKnife /> add items</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/manage-item'}><IoMdMenu /> manage items</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/manage-booking'}><SlCalender /> Manage bookings</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/all-users'}><FaUsers /> All users</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/profile'}><HiUsers /> Admin Profile</NavLink>
-                                </li>
-                                {/* Admin nav links End*/}
-                            
-                            </> : 
+                            isAdmin ?
+                                <>
+
+                                    {/* Admin nav links */}
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/admin'}><FaHome /> Dashboard</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/add-item'}><ImSpoonKnife /> Add items</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/manage-item'}><IoMdMenu /> Manage items</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/manage-booking'}><SlCalender /> Manage bookings</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/all-users'}> <FaUsers /> All users</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/cart'}><FaCartArrowDown /> My Cart</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/profile'}><HiUsers /> Admin Profile</NavLink>
+                                    </li>
+                                    {/* Admin nav links End*/}
+
+                                </> :
 
 
 
@@ -72,29 +75,29 @@ const Dashboard = () => {
 
 
 
-                            <>
-                            
-                                {/* Customer nav links  */}
-                                <li>
+                                <>
 
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard'}><FaHome /> Dashboard</NavLink>
-                                </li>
-                                <li>
+                                    {/* Customer nav links  */}
+                                    <li>
 
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/reservation'}><MdDateRange /> Reservation</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/cart'}><FaCartArrowDown /> My Cart</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="text-xl hover:text-white" to={'/dashboard/profile'}><HiUsers /> User Profile</NavLink>
-                                </li>
-                                {/* Customer nav links end */}
-                            
-                            </>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/client'}><FaHome /> Dashboard</NavLink>
+                                    </li>
+                                    <li>
+
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/reservation'}><MdDateRange /> My Reservation</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/cart'}><FaCartArrowDown /> My Cart</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="text-xl hover:text-white" to={'/dashboard/profile'}><HiUsers /> My Profile</NavLink>
+                                    </li>
+                                    {/* Customer nav links end */}
+
+                                </>
                         }
 
-                        
+
 
 
 

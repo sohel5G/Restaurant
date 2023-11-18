@@ -9,11 +9,10 @@ This form custom code by self for the field validation
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from 'react-icons/fa';
 import swal from "sweetalert";
-import { useContext } from "react";
-import { AllContext } from "../../Provider/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
-    const { registerUser, userUpdateOnSignUp, setUser, googleSignInWithPopup } = useContext(AllContext);
+    const { registerUser, userUpdateOnSignUp, setUser, googleSignInWithPopup } = useAuth();
     const navigate = useNavigate()
 
 

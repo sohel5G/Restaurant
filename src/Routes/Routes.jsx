@@ -12,11 +12,18 @@ import DashboardCart from "../pages/Dashboard/DashboardCart/DashboardCart";
 import DashboardProfile from "../pages/Dashboard/DashboardProfile/DashboardProfile";
 import Reservation from "../pages/Dashboard/Reservation/Reservation";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import AddItem from "../pages/Dashboard/AddItem/AddItem";
+import DashboardAdmin from "../pages/Dashboard/DashboardAdmin/DashboardAdmin";
+import ManageItem from "../pages/Dashboard/ManageItem/ManageItem";
+import ManageBooking from "../pages/Dashboard/ManageBooking/ManageBooking";
+import AdminRoute from "../PrivateRoute/AdminRoute";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Main></Main>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -31,52 +38,85 @@ const router = createBrowserRouter([
                 element: <Shop></Shop>
             },
             {
-                path:'login',
-                element:<Login></Login>
+                path: 'login',
+                element: <Login></Login>
             },
             {
-                path:'register',
+                path: 'register',
                 element: <Register></Register>
             }
         ]
     },
+
+
+
     {
-        path:'/dashboard',
+        path: '/dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
 
-            //Admin routs
+
+            //Admin use routs
             {
-                path:'all-users',
-                element: <AllUsers></AllUsers>
-            },
-
-            // Admin routs
-
-
-
-
-
-            
-
-            // Customers routes 
-            {
-                path: '',
-                element:<DashboardHome></DashboardHome>
+                path: 'admin',
+                element: <AdminRoute> <DashboardAdmin></DashboardAdmin> </AdminRoute>
             },
             {
-                path:'cart',
-                element:<DashboardCart></DashboardCart>
+                path: 'add-item',
+                element: <AdminRoute> <AddItem></AddItem> </AdminRoute>
             },
             {
-                path:'reservation',
+                path: 'manage-item',
+                element: <AdminRoute> <ManageItem></ManageItem> </AdminRoute>
+            },
+            {
+                path: 'manage-booking',
+                element: <AdminRoute> <ManageBooking></ManageBooking> </AdminRoute>
+            },
+            {
+                path: 'all-users',
+                element: <AdminRoute> <AllUsers></AllUsers> </AdminRoute>
+            },
+            // Admin use routs end
+
+
+
+
+
+
+
+            // Client use routes 
+            {
+                path: 'client',
+                element: <DashboardHome></DashboardHome>
+            },
+            {
+                path: 'reservation',
                 element: <Reservation></Reservation>
             },
+            // End Client use routes end
+
+
+
+
+
+
+
+            // Client and Admin both use routes
+
             {
-                path:'profile',
+                path: 'cart',
+                element: <DashboardCart></DashboardCart>
+            },
+            {
+                path: 'profile',
                 element: <DashboardProfile></DashboardProfile>
             }
-            // End Customers routes
+            // Client and Admin both use routes End
+
+
+
         ]
     }
 ]);

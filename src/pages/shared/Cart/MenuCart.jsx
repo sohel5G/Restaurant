@@ -16,7 +16,7 @@ const MenuCart = () => {
                     <span className='text-xs font-medium absolute -top-3 -right-2 !text-white bg-black flex justify-center items-center w-5 h-5 rounded-full'>{cart?.length}</span>
                 </div>
                 <div>
-                    <p className='text-base font-medium'> <span>$</span>{totalprice}</p>
+                    <p className='text-base font-medium'> <span>$</span>{Math.ceil(parseFloat(totalprice)).toFixed(2)}</p>
                 </div>
             </div>
         </>

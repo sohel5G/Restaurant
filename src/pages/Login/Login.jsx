@@ -32,7 +32,7 @@ const Login = () => {
                     icon: "success",
                     buttons: false,
                 })
-                navigate(location?.state ? location?.state : '/dashboard');
+                navigate(location?.state ? location?.state : '/dashboard/profile');
 
             })
             .catch((errorData) => {

@@ -58,7 +58,7 @@ const Register = () => {
                                 console.log('user stored into database', res.data);
 
                                 reset()
-                                navigate(location?.state ? location?.state : '/dashboard');
+                                navigate(location?.state ? location?.state : '/dashboard/profile');
 
                             })
                         //store user to database end
