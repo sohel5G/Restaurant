@@ -22,7 +22,7 @@ const Testimonials = () => {
                 navigation={true}
                 modules={[Navigation]}
                 className="mySwiper"
-                // loop={true}
+            // loop={true}
             >
                 {
                     reviews?.map(review => <SwiperSlide key={review._id}>
@@ -37,7 +37,7 @@ const Testimonials = () => {
                             <p className='text-lg font-normal'> {review.details} </p>
                             <h2 className='text-xl font-semibold'>{review.name}</h2>
                         </div>
-                    </SwiperSlide> )
+                    </SwiperSlide>)
                 }
             </Swiper>
         </>

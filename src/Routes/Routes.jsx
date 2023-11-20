@@ -18,6 +18,7 @@ import DashboardAdmin from "../pages/Dashboard/DashboardAdmin/DashboardAdmin";
 import ManageItem from "../pages/Dashboard/ManageItem/ManageItem";
 import ManageBooking from "../pages/Dashboard/ManageBooking/ManageBooking";
 import AdminRoute from "../PrivateRoute/AdminRoute";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -112,6 +113,10 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <DashboardProfile></DashboardProfile>
+            },
+            {
+                path: 'payment',
+                element: <Payment></Payment>
             }
             // Client and Admin both use routes End
 

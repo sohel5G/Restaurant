@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCart";
 import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const DashboardCart = () => {
     const [cart, , , refetch] = useCart();
@@ -45,8 +46,18 @@ const DashboardCart = () => {
         <>
             <div className="flex gap-5 justify-between bg-gray-100 py-4 px-5 rounded-md">
                 <h1 className="text-2xl">Item {cart?.length}</h1>
-                <h1 className="text-2xl">Total Price ${Math.ceil(parseFloat(totalprice)).toFixed(2)}</h1>
-                <button className="bg-black text-white text-lg py-2 px-5 rounded-md">Pay</button>
+                <h1 className="text-2xl">Total Price ${totalprice}</h1>
+                {
+                    cart.length ?
+                        <>
+                            <Link to={'/dashboard/payment'}>
+                                <button className="bg-black text-white text-lg py-2 px-5 rounded-md">Pay</button>
+                            </Link>
+                        </> :
+                        <>
+                            <button className="bg-[#00000047] text-white text-lg py-2 px-5 rounded-md">Pay</button>
+                        </>
+                }
             </div>
             <div>
                 <div className="overflow-x-auto">
@@ -84,7 +95,7 @@ const DashboardCart = () => {
                                 </tr>)
                             }
                         </tbody>
-                        
+
                         <tfoot className="bg-gray-100">
                             <tr>
                                 <th className="text-lg">Number</th>
