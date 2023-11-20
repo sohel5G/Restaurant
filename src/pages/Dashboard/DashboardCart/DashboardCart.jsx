@@ -74,26 +74,46 @@ const DashboardCart = () => {
                         </thead>
                         <tbody>
                             {
-                                cart?.map((item, index) => <tr key={item._id} className="border-gray-200">
-                                    <th>
-                                        <h1>{index + 1}</h1>
-                                    </th>
-                                    <td>
-                                        <div>
-                                            <img className="w-20 rounded-xl" src={item.image} alt={item.name} />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h2 className="text-xl">{item.name}</h2>
-                                    </td>
-                                    <td>
-                                        <p> {item.price} </p>
-                                    </td>
-                                    <th>
-                                        <button onClick={() => handleDelete(item._id)} className="text-2xl text-red-400"><MdDelete /></button>
-                                    </th>
-                                </tr>)
+                                cart.length ?
+                                    <>
+                                        {
+                                            cart?.map((item, index) => <tr key={item._id} className="border-gray-200">
+                                                <th>
+                                                    <h1>{index + 1}</h1>
+                                                </th>
+                                                <td>
+                                                    <div>
+                                                        <img className="w-20 rounded-xl" src={item.image} alt={item.name} />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h2 className="text-xl">{item.name}</h2>
+                                                </td>
+                                                <td>
+                                                    <p> {item.price} </p>
+                                                </td>
+                                                <th>
+                                                    <button onClick={() => handleDelete(item._id)} className="text-2xl text-red-400"><MdDelete /></button>
+                                                </th>
+                                            </tr>)
+                                        }
+                                    </> :
+                                    <>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <h1 className="text-2xl"> Cart is empty </h1>
+                                                <Link to={'/shop'}>
+                                                    <button className="bg-black py-1 px-3 text-white rounded-lg my-7">Shop now</button>
+                                                </Link>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </>
                             }
+                           
                         </tbody>
 
                         <tfoot className="bg-gray-100">

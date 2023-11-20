@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('');
     const [transactionId, setTransactionId] = useState('');
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     const stripe = useStripe();
     const elements = useElements();
@@ -18,11 +21,13 @@ const CheckoutForm = () => {
     const totalPrice = cart?.reduce((total, item) => total + item.price, 0);
 
     useEffect(() => {
-        axiosSecure.post('/create-stripe-payment-intent', { price: totalPrice })
-            .then(res => {
-                setClientSecret(res.data.clientSecret);
-                console.log('Client secret from the server side', res.data.clientSecret);
-            })
+        if(totalPrice > 0){
+            axiosSecure.post('/create-stripe-payment-intent', { price: totalPrice })
+                .then(res => {
+                    setClientSecret(res.data.clientSecret);
+                    console.log('Client secret from the server side', res.data.clientSecret);
+                })
+        }
     }, [axiosSecure, totalPrice])
 
     const handleCheckout = async (event) => {
@@ -71,6 +76,32 @@ const CheckoutForm = () => {
             if (paymentIntent.status === 'succeeded'){
                 console.log('Transaction Id : ', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
+
+
+                // Store payment info in the data base.
+                const payment = {
+                    userEmail: user?.email,
+                    totalPrice,
+                    transactionId: paymentIntent.id,
+                    date:new Date(), // utc date convert, use moment js to do it
+                    cartIds: cart.map(item => item._id),
+                    cartItemIds: cart.map(item => item.cartItemId),
+                    status: 'pending'
+                }
+
+                const response = await axiosSecure.post('/payment-done', payment);
+                console.log(response.data);
+                if (response.data.paymentResult.insertedId){
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Purchase complete your payment is done",
+                        showConfirmButton: false,
+                        timer: 5000
+                    });
+                    navigate('/dashboard/reservation');
+                }
+
             }
         }
 
