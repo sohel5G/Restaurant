@@ -109,28 +109,26 @@ const CheckoutForm = () => {
 
     return (
         <div className="max-w-lg mx-auto">
-            <form onSubmit={handleCheckout}>
-                <CardElement>
-                    <CardElement
-                        options={{
-                            style: {
-                                base: {
-                                    fontSize: '18px',
-                                    color: '#424770',
-                                    '::placeholder': {
-                                        color: '#aab7c4',
-                                    },
-                                },
-                                invalid: {
-                                    color: '#9e2146',
+            <form onSubmit={handleCheckout}> 
+                <CardElement
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: '18px',
+                                color: '#424770',
+                                '::placeholder': {
+                                    color: '#aab7c4',
                                 },
                             },
-                        }}
-                    />
-                    <button type="submit" disabled={!stripe || !clientSecret} className="bg-black py-1 px-3">
-                        Pay
-                    </button>
-                </CardElement>
+                            invalid: {
+                                color: '#9e2146',
+                            },
+                        },
+                    }}
+                />
+                <button className="bg-black text-white py-1 px-3 rounded-md my-8" type="submit" disabled={!stripe || !clientSecret}>
+                    Pay now
+                </button>
             </form>
             <p className="text-red-500 py-5"> {error} </p>
             <p className="text-green-500 py-5"> {transactionId} </p>
