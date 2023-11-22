@@ -5,6 +5,7 @@ import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import "./CheckoutForm.css"
 
 const CheckoutForm = () => {
     const [error, setError] = useState('');

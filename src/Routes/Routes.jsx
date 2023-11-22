@@ -7,7 +7,6 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Dashboard from "../Layout/Dashboard";
-import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import DashboardCart from "../pages/Dashboard/DashboardCart/DashboardCart";
 import DashboardProfile from "../pages/Dashboard/DashboardProfile/DashboardProfile";
 import Reservation from "../pages/Dashboard/Reservation/Reservation";
@@ -19,6 +18,7 @@ import ManageItem from "../pages/Dashboard/ManageItem/ManageItem";
 import ManageBooking from "../pages/Dashboard/ManageBooking/ManageBooking";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import Payment from "../pages/Dashboard/Payment/Payment";
+import DashboardUser from "../pages/Dashboard/DashboardHome/DashboardUser";
 
 const router = createBrowserRouter([
     {
@@ -90,7 +90,7 @@ const router = createBrowserRouter([
             // Client use routes 
             {
                 path: 'client',
-                element: <DashboardHome></DashboardHome>
+                element: <DashboardUser></DashboardUser>
             },
             {
                 path: 'reservation',

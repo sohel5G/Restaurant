@@ -183,7 +183,7 @@ const Register = () => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-9"
                                 />
                                 <span onClick={() => setShowPass(!showPass)} className="cursor-pointer p-1 absolute top-[10px] right-[10px]">
-                                    {showPass ? <FaEyeSlash /> : <FaEye />}
+                                    {showPass ? <FaEye /> : <FaEyeSlash />}
                                 </span>
                             </div>
                             {errors.password?.type === 'required' && <span className="text-red-500">Password is required</span>}
@@ -209,7 +209,7 @@ const Register = () => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-9"
                                 />
                                 <span onClick={() => setShowConfirmPass(!showConfirmPass)} className="cursor-pointer p-1 absolute top-[10px] right-[10px]">
-                                    {showConfirmPass ? <FaEyeSlash /> : <FaEye />}
+                                    {showConfirmPass ? <FaEye /> : <FaEyeSlash />}
                                 </span>
                             </div>
                             {errors.confirm_pass && <span className="text-red-500"> Please confirm your password </span>}

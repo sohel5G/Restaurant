@@ -105,7 +105,7 @@ const Login = () => {
                                         required
                                     />
                                     <span onClick={() => setShowPass(!showPass)} className="cursor-pointer p-1 absolute top-[10px] right-[10px]">
-                                        {showPass ? <FaEyeSlash /> : <FaEye />}
+                                        {showPass ? <FaEye /> : <FaEyeSlash />}
                                     </span>
                                 </div>
                             </div>
