@@ -5,9 +5,11 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import useAuth from '../../hooks/useAuth';
 import SocialLogin from '../shared/SocialLogin/SocialLogin';
+import loaderIcon from "../../assets/icon/loader.gif"
 
 const Login = () => {
     const { userLogIn } = useAuth();
+    const [submitBtnLoader, setSubmitBtnLoader] = useState(false);
     const [showPass, setShowPass] = useState(true);
 
     const navigate = useNavigate();
@@ -17,6 +19,9 @@ const Login = () => {
     const [disableLogInBtn, setDisableLogInBtn] = useState(true);
 
     const handleUserLogin = event => {
+
+        setSubmitBtnLoader(true);
+
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
@@ -32,6 +37,7 @@ const Login = () => {
                     icon: "success",
                     buttons: false,
                 })
+                setSubmitBtnLoader(false);
                 navigate(location?.state ? location?.state : '/dashboard/profile');
 
             })
@@ -43,7 +49,7 @@ const Login = () => {
                     icon: "warning",
                     buttons: false,
                 })
-
+                setSubmitBtnLoader(false);
                 console.log('login error', error)
             });
     }
@@ -155,13 +161,14 @@ const Login = () => {
                                 </a>
                             </div>
 
-                            <div>
+                            <div className="relative">
                                 <input
                                     disabled={disableLogInBtn}
                                     value="Sign in"
                                     type="submit"
-                                    className={`${disableLogInBtn ? 'bg-[#0000003d]' : 'bg-[#000000]'} text-white cursor-pointer w-full  font-medium rounded-lg text-sm px-5 py-2.5 text-center border`}
+                                    className={`${disableLogInBtn ? 'bg-[#0000003d]' : 'bg-[#000000]'} text-white cursor-pointer w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center border`}
                                 />
+                                {submitBtnLoader && <img src={loaderIcon} alt="Loader" className="w-5 absolute top-2 right-3" />}
                             </div>
 
                             <p className=" text-sm font-light text-gray-500 dark:text-gray-400">

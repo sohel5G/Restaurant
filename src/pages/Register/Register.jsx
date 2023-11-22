@@ -16,9 +16,11 @@ import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SocialLogin from "../shared/SocialLogin/SocialLogin";
+import loaderIcon from "../../assets/icon/loader.gif"
 
 const Register = () => {
     const { registerUser, userUpdateOnSignUp, setUser } = useAuth();
+    const [submitBtnLoader, setSubmitBtnLoader] = useState(false);
 
     const [showPass, setShowPass] = useState(true);
     const [showConfirmPass, setShowConfirmPass] = useState(true);
@@ -33,6 +35,8 @@ const Register = () => {
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const onSubmit = data => {
+
+        setSubmitBtnLoader(true);
 
         registerUser(data.email, data.password)
             .then((succData) => {
@@ -53,6 +57,7 @@ const Register = () => {
                                         icon: "success",
                                         buttons: false,
                                     })
+                                    setSubmitBtnLoader(false);
                                 }
 
                                 console.log('user stored into database', res.data);
@@ -66,7 +71,8 @@ const Register = () => {
                         console.log('profile data set')
 
                     }).catch((error) => {
-                        console.log('profile data not set', error)
+                        console.log('profile data not set', error);
+                        setSubmitBtnLoader(false);
                     });
 
                 console.log('SignUp User created', user)
@@ -82,6 +88,7 @@ const Register = () => {
                 })
 
                 console.log('SignUp error', error)
+                setSubmitBtnLoader(false);
             });
 
     }
@@ -263,13 +270,14 @@ const Register = () => {
                             {errors.terms && <span className="text-red-500">Please Accept Term And Conditions</span>}
                         </div>
 
-                        <div>
+                        <div className="relative">
                             <input
                                 disabled={disableLogInBtn}
                                 value="Create an account"
                                 type="submit"
-                                className={`${disableLogInBtn ? 'bg-[#0000003d]' : 'bg-[#000000]'} text-white cursor-pointer w-full  font-medium rounded-lg text-sm px-5 py-2.5 text-center border`}
+                                className={`${disableLogInBtn ? 'bg-[#0000003d]' : 'bg-[#000000]'} text-white cursor-pointer w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center border`}
                             />
+                            {submitBtnLoader && <img src={loaderIcon} alt="Loader" className="w-5 absolute top-2 right-3" />}
                         </div>
 
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
