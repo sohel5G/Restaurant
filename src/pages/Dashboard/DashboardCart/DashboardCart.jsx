@@ -24,7 +24,7 @@ const DashboardCart = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`http://localhost:5000/user/delete-cart/${itemId}`)
+                axiosSecure.delete(`https://restaurant-server-zeta.vercel.app/user/delete-cart/${itemId}`)
                     .then(response => {
                         if (response.data.deletedCount > 0) {
                             Swal.fire({
@@ -113,7 +113,7 @@ const DashboardCart = () => {
                                         </tr>
                                     </>
                             }
-                           
+
                         </tbody>
 
                         <tfoot className="bg-gray-100">
